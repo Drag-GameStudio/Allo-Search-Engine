@@ -1,434 +1,548 @@
-# Allo Search Engine Overview
 
-The Allo search engine is a tool designed to search and display information about products from the Allo.ua website. It uses Python to scrape data from various pages and retrieve relevant product details such as name, price, image, ratings, and other characteristics. The primary goal of this code is to collect and present a comprehensive list of products that meet certain search parameters.
+### 🚀 Powered by ADG System
+The original version of this document offers a superior layout and faster navigation. 
+**Check it out here:** [Full Documentation Interface](https://draggame-adg-frontend.hf.space/docs/adg_doc_41991a4ab231ac1dab3d20862599e97b)
+---
 
-# Features
+# Project Overview
 
-- A simple and user-friendly web interface that allows users to quickly enter a search prompt and receive results.
-- Extraction of product details, including name, price, image, ratings, and characteristics.
-- Sorting and categorizing of product information for enhanced search results.
-- Seamless integration with Allo.ua website, scraping relevant data accurately and efficiently.
-- Customizable search parameters based on filters such as price range, brand, and page number.
+## Project Title
+**Dynamic Product Data Extraction and Display System**
 
-# Structure
+---
 
-The codebase consists of multiple components with well-defined responsibilities:
+## Project Goal
+The primary objective of this project is to create a modular and scalable system for extracting, processing, and displaying product information dynamically. The software is designed to solve the challenge of aggregating product data, including characteristics and ratings, from HTML sources and presenting it in a user-friendly web interface. By leveraging a modular architecture and a handler-based workflow, the project ensures flexibility, maintainability, and ease of integration with other systems.
 
-- `Req_part`: Handles HTTP requests and obtains HTML responses from the Allo.ua website.
-- `HandlerCode`: Manages the extraction and processing of relevant data from HTML responses.
-- `main`: Main script where the functions `GetOrders()`, `ReqPart`, and `HandlerCode` are initiated to form the final response that is returned to the user.
-- `DataHandler`: Processes data and extracts essential information such as name, price, ratings, and characteristics from the retrieved products.
-- `HendlerOrder`: Sorts and organizes the assembled product data, displaying the final results in an ordered fashion.
-- `HTMLHandler`: Parses and extracts data from HTML content efficiently.
-- `Until`: Provides helpful classes for parsing and finding elements within the HTML code.
-- `Visual`: Initializes the web server using the Flask framework, allowing users to interact with the search engine through a simple web interface.
+---
 
-# Usage
+## Core Logic & Principles
 
-To use the Allo search engine, follow these steps:
+### 1. **Modular Design with Handler-Based Workflow**
+The backend of the project is built using a modular architecture where specific tasks are delegated to specialized handler modules. These handlers are responsible for:
+- **Data Extraction:** Parsing HTML content to extract product details such as name, price, image, characteristics, and ratings.
+- **Data Processing:** Transforming raw data into structured `Product` objects and organizing them based on user-defined criteria.
+- **Data Sorting:** Sorting products based on ratings and other attributes, and generating structured dictionaries for characteristics and ratings.
 
-1. Install the required dependencies:
-   - Python 3.6+ (to run the code, install Python through official Python website)
-   - Flask (visit "https://flask.palletsprojects.com" to install Flask)
-   - BeautifulSoup4 and requests (to scrape data)
+The modular design ensures that each component is independent and reusable, allowing for easy debugging, testing, and future enhancements.
 
+### 2. **MVC Pattern for Web Application**
+The web application follows the Model-View-Controller (MVC) design pattern:
+- **Model:** The backend processes product data, organizes it into structured formats, and serves it via a RESTful API.
+- **View:** A dynamic HTML/JavaScript frontend displays product data in a table format, allowing users to query and interact with the data.
+- **Controller:** The Flask server acts as the controller, managing API requests, rendering templates, and orchestrating the data flow between the backend and frontend.
 
-2. Run the script from the terminal or command prompt by executing the python command followed by the path to the `visual.py` file:
+### 3. **Key Technologies and Algorithms**
+- **HTML Parsing:** The system uses BeautifulSoup to parse and extract structured data from HTML content. The `Finder` and `Parser` utility classes handle text normalization and element extraction.
+- **Data Representation:** The `Product` class serves as the central data structure, encapsulating all product-related information, including characteristics and ratings.
+- **Sorting and Organization:** The `HandlerOrder` class implements algorithms to sort products by ratings and organize characteristics and ratings into shared dictionaries for consistent display.
+- **Web Framework:** Flask is used to create a lightweight backend that serves the HTML template and provides an API for fetching product data.
+- **Frontend Interactions:** JavaScript dynamically updates the HTML table based on user input, ensuring a seamless user experience.
 
-```python
-python visual.py
-```
+---
 
-3. Open a web browser and navigate to the created server address (default port 800) to reach the Allo search engine's web interface. Type the desired search prompt and click on the "Get orders" button to retrieve and display the results.
+## Key Features
 
-Note: Since the code interacts with the Allo.ua website, ensure that the website's terms and conditions and local legal restrictions regarding web scraping are taken into account.
-# config.py
+- **Automated Data Extraction:**
+  - Extracts product details, characteristics, and ratings from HTML sources.
+  - Handles both class-based and non-class-based HTML elements.
 
-This file contains a Python dictionary called `REQ_PARAMS`, which holds parameter names and their respective query string placeholders for building API requests.
+- **Dynamic Data Processing:**
+  - Converts raw data into structured `Product` objects.
+  - Normalizes text and converts price strings to numerical values.
 
-## REQ_PARAMS
+- **Advanced Sorting and Organization:**
+  - Sorts products by general ratings.
+  - Organizes product characteristics and ratings into structured dictionaries for easy display.
 
-A dictionary that maps parameter names to their corresponding query string placeholders.
+- **Web-Based User Interface:**
+  - Interactive frontend built with HTML and JavaScript.
+  - Dynamically updates product data based on user input.
+  - Displays product details in a tabular format with sortable columns.
 
-- `"price from"`: A string representing the starting price of an item. The placeholder for the API query is `"price_from-"`.
-- `"price to"`: A string representing the ending price of an item. The placeholder for the API query is `"price_to-"`.
-- `"proizvoditel"`: A string representing the manufacturer of an item. The placeholder for the API query is `"proizvoditel-"`.
-- `"page"`: A string representing the page number for pagination. The placeholder for the API query is `"p-"`.
+- **Modular and Scalable Architecture:**
+  - Handler-based workflow for easy maintenance and extensibility.
+  - Clear separation of concerns between data extraction, processing, and display.
 
-### Example
+- **CI/CD Integration:**
+  - Automated documentation generation using GitHub Actions and reusable workflows.
 
-To use this file, first import it into your code:
+---
 
-```python
-from config import REQ_PARAMS
-```
+## Dependencies
 
-You can then use the `REQ_PARAMS` dictionary to construct API requests by replacing the question marks `?` with the necessary query parameter names, and inserting the corresponding placeholders for dynamic values.
+### Backend
+- **Python 3.x**
+- **Flask:** Web framework for serving the application and handling API requests.
+- **BeautifulSoup:** Library for parsing and extracting data from HTML.
+- **YAML:** For configuration file parsing (e.g., `autodocconfig.yml`).
 
-For example, to build a URL for an API request that includes starting price, ending price, manufacturer, and page number, you would do the following:
+### Frontend
+- **HTML/CSS/JavaScript:** For building the user interface.
+- **AJAX:** For asynchronous communication with the backend API.
 
-```python
-base_url = "http://example.com/api/items?"
-url_params = "?".join([
-    f"{param}={REQ_PARAMS[param]}{value}"
-    for param, value in [
-        ("price_from", "100"),
-        ("price_to", "500"),
-        ("proizvoditel", "Brand X"),
-        ("p", "2"),
-    ]
-])
+### CI/CD
+- **GitHub Actions:** For automated documentation generation using the `autodoc.yml` workflow and external reusable workflows.
 
-full_api_url = base_url + url_params
-```
+---
 
-This will generate a URL like the following:
+This project provides a robust and modular solution for extracting, processing, and displaying product data. Its handler-based architecture and MVC design ensure scalability and maintainability, making it an ideal choice for applications requiring dynamic data processing and visualization.
+## Executive Navigation Tree
 
-```
-http://example.com/api/items/?price_from=100&price_to=500&proizvoditel=Brand%20X&p=2
-```
-
-By using this file, your code will benefit from a clean and consistent way to handle API request parameters for an allo search application.
-# Data Handler
-
-This Markdown file provides documentation for the `DataHandler` class, focusing on its usage and methods. It is an additional documentation, not the full version.
-
-## Introduction
-
-The `DataHandler` class is a utility class designed to extract data from webpages. It utilizes the `Product` class to handle data storage. The class takes two dictionaries (`classes_data` and `others_data`) as initialization parameters and offers methods to get the base data, characteristics, and ratings of a product.
-
-## Usage
-
-To use the `DataHandler`, you must create an instance of it and supply the required dictionaries.
-
-```python
-from handler_data import DataHandler
-
-classes_data = {
-    "/[document]/product-card/product-card__content/product-card__title": [...],
-    "/[document]/product-card/product-card__content/product-card__buy-box/v-pb/v-pb__cur/sum": [...],
-    "/[document]/product-card/product-card__pictures/product-card__img/image-carousel/image-carousel__container/image-carousel__slides/is-active/gallery__img": [...],
-    "/[document]/product-estimate/average-estimate/average-estimate__rating": [...],
-    "/[document]/product-estimate/product-estimate__center/detail-estimate/detail-estimate-list/detail-estimate-list__item": [...]
-}
-
-others_data = {
-    "/[document]/p-view__specs/p-specs/p-specs__groups-list/p-specs__group/tbody/tr/p-specs__cell": [...]
-}
-
-data_handler = DataHandler(classes_data, others_data)
-```
-
-Once you have created an instance of `DataHandler`, you can use its methods:
-
-## Methods
-
-### `get_base_data()` → `Product`
-
-This method extracts the base data for a product from `classes_data` and returns a `Product` instance with the extracted data.
-
-```python
-product = data_handler.get_base_data()
-```
-
-### `get_characteristics(product: Product)` → `Product`
-
-This method receives a `Product` instance with base data, accesses other data from `others_data`, and extracts the characteristics (parameters) of the product. It updates the instance's `characteristics` attribute and returns the modified `Product` instance.
-
-```python
-characteristics_product = data_handler.get_characteristics(product)
-```
-
-### `get_rate(product: Product)` → `Product`
-
-This method receives a `Product` instance with base data and accesses classes_data. It retrieves the product's rating and updates the instance's `rating` attribute. A rated `Product` instance is returned.
-
-```python
-rated_product = data_handler.get_rate(product)
-```
-
-In case there is an error retrieving the rating, the method will set the rating to `None` and return the product object.
-# handler_order.py
-
-This module contains a class `HandlerOrder` to handle sorting and displaying characteristics and ratings of products.
-
-## Class: `HandlerOrder`
-
-This class accepts a list of `Product` objects and provides methods to sort the products by rating, and set up columns for displaying the characteristics and ratings.
-
-### Methods
-
-#### `__init__(self, products)`
-
-Initializes the `HandlerOrder` object with a list of products.
-
-#### `sort_orders(self)`
-
-Sorts the product list in descending order based on the "general" rating.
-
-#### `get_columns(self)`
-
-Generates dictionaries of empty strings with keys as product characteristics and stores it in `colums`.
-
-#### `get_all_characteristics(self)`
-
-Sets all product characteristics to the columns defined in `get_columns(self)`.
-
-#### `get_columns_rate(self)`
-
-Generates dictionaries of empty strings with keys as product ratings and stores it in `colums_rate`.
-
-#### `get_all_rate(self)`
-
-Sets all product ratings to the columns defined in `get_columns_rate(self)`.
-# Html Handler Module
-
-This module, `html_handler.py`, provides a `HandlerBlock` class that parses an input string containing HTML code and extracts class names and elements without class names.
-
-## Usage
-
-To use the `HandlerBlock` class, perform the following steps:
-
-1. Import the `HandlerBlock` class from the `html_handler.py` module:
-
-```python
-from html_handler import HandlerBlock
-```
-
-2. Create an instance of the `HandlerBlock` class by passing an HTML code string to its constructor:
-
-```python
-html_code = '''
-  <div>
-    <button class="btn btn-primary">Primary</button>
-    <p class="text-danger">Danger</p>
-  </div>
-'''
-
-handler = HandlerBlock(html_code)
-```
-
-3. Obtain the results containing the extracted class names and elements without class names using the `Handler()` method of the `HandlerBlock` instance:
-
-```python
-class_data, element_data = handler.Handler()
-```
-
-4. Use the returned `class_data` and `element_data` dictionaries to access the extracted information:
-
-- `class_data`: a dictionary where keys represent the element path in the form of `/class1/class2/element` and values are lists of corresponding class names.
-- `element_data`: a dictionary where keys represent the element path in the form of `//element` and values are lists of corresponding elements without class names.
-
-## Methods
-
-### `__init__(self, block_code: str) -> None`
-
-- `block_code`: the HTML code string to be parsed.
-
-Creates an instance of the `HandlerBlock` class that can be used to extract class names and elements without class names from the provided HTML code.
-
-### `Handler(self) -> tuple[dict, dict]`
-
-Returns a tuple containing two dictionaries: `class_data` and `element_data`.
-
-- `class_data`: a dictionary representing the extracted class names along with their paths.
-- `element_data`: a dictionary representing the extracted elements without class names along with their paths.
-
-### `handler_classes(self) -> dict`
-
-Parses the HTML code and finds all class names within the code, organizing them into a dictionary.
-
-### `handler_element_without_classes(self) -> dict`
-
-Parses the HTML code and finds all elements without class names within the code, organizing them into a dictionary.
-
-### `get_item_path(self, finder: until.Finder, item, element_type:str) -> str`
-
-Calculates the element's path based on its class or the type of element, with the input being a nested format.
-
-- `finder`: a `until.Finder` instance used for HTML code parsing.
-- `item`: the current element in the hierarchy.
-- `element_type`: specifies whether the element's path is based on a class or not. (`None` means the element's path is not based on a class.)
-
-Returns the element's path in the form of `/class1/class2/element`, where elements without class names are represented by `//element`.
-# until.py
-
-## Usage
-
-This file contains two classes: `Parser` and `Finder`. These classes are used to parse and find HTML elements in a given HTML code.
-
-## Parser
-
-### from_str_to_int
-
-```
-from_str_to_int(self, start: str, flag: tuple) -> float
-```
-
-Converts a string to a float value, skipping elements from the given tuple `flag`.
-
-### get_normal_text
-
-```
-get_normal_text(self, text: str) -> str
-```
-
-Removes the specified parts of a string to extract the desired text.
-
-## Finder
-
-### __init__
-
-```
-__init__(self, html_code: str) -> None
-```
-
-Initializes a new `Finder` object with the given HTML code.
-
-### find_classes
-
-```
-find_classes(self, type_item, class_name) -> list
-```
-
-Finds HTML elements based on the provided `type_item` and optional `class_name`.
-
-### find_without_class
-
-```
-find_without_class(self) -> list
-```
-
-Finds all HTML elements without specifying any class name.
-
-## Example usage
-
-```python
-# Import the required classes.
-from bs4 import BeautifulSoup
-from until import Parser, Finder
-
-# Initialize the Parser and Finder classes.
-parser = Parser()
-finder = Finder('<html_code_here>')
-
-# Example of using the from_str_to_int method.
-start_str = "1k2n4"
-flag_tuple = ('k', 'n')
-result = parser.from_str_to_int(start_str, flag_tuple)
-print(result)  # Output: 142
-
-# Example of using the get_normal_text method.
-text = "normal text\nwith multiple\nlines"
-normal_text = parser.get_normal_text(text)
-print(normal_text)  # Output: normal text with multiple lines
-
-# Example of using the find_classes method.
-html_code = '<html_code_here>'
-finder = Finder(html_code)
-elements = finder.find_classes('div', 'specific_class')
-for el in elements:
-    print(el)
-
-# Example of using the find_without_class method.
-finder = Finder(html_code)
-elements = finder.find_without_class()
-for el in elements:
-    print(el)
-```
-
-This example demonstrates how to use the methods in the `Parser` and `Finder` classes to find information from an HTML document. You can integrate these methods into your own code as needed.
-# main.py Documentation
-
-This documentation describes the usage of `main.py` which interacts with the Allo.ua search functionality to fetch and process product information using Python.
-
-## Classes and Methods Overview
-
-* `Req_part`: A class responsible for making request to the Allo.ua search.
-  - `get_html_code(self, prompt: str) -> str`: Fetches the HTML code for the given search prompt.
-  - `get_element(self, element_type: str, element_class: str, html_code: str) -> list`: Finds element by type and class within HTML code.
-* `HandlerCode`: A class for handling code blocks and extracting product data.
-  - `make_req(self, url: str, find_items: str, prompt: str) -> list`: Makes a request to the given URL and returns a list of elements.
-  - `hendler_blocks(self, blocks: list)`: Processes the blocks and extracts product data, including characteristics and rates.
-  - `get_characteristics(self, html_code: str, RP_class: Req_part, product: Product) -> Product`: Processes the product's characteristics.
-  - `get_all_order(self, max_page: int = 3)`: Fetches all orders up to the specified number of pages.
-  - `add_filter(self, filter: str, value: any)`: Adds filter parameters to the URL.
-  - `apply_param(self)`: Applies the filter parameters to the URL.
-* `Get_orders`: A function that retrieves, processes, and returns the Allo.ua search results based on given prompt.
-  - `url`: The base URL for the Allo.ua search functionality.
-  - `prompt`: The search prompt for the desired products.
-  - `find_items`: A string denoting the class name for the items to find on the page.
-  - `HC_class`: HandlerCode class instance for handling code blocks and extracting product data.
-
-## Usage
-
-To use the `main.py` module, import the required class and function, and call the `Get_orders()` function with the desired prompt. Here's an example:
-
-```python
-from main import Get_orders
-
-prompt = "laptop"
-products = Get_orders(prompt)
-
-for product in products:
-    print(product)
-```
-
-This will fetch Allo.ua search results for the "laptop" prompt and print the associated product information.
-
-You may also modify the default behavior by overriding the parameters such as `find_items` or by adding custom filters through the `add_filter()` and `apply_param()` methods of the `HandlerCode` class. These custom filters can include parameters like price range, delivery options, or specific categories.
-
-Note: Ensure that the necessary dependencies are installed (`requests`, `beautifulsoup`, `sys`, `config`, `handlers` package) before running this code.
-# Allo_Search/templates/index.html
-
-This file is responsible for displaying the user interface and handling user interactions for the Allo_Search application. It utilizes JavaScript, HTML, and CSS to render the product information based on the user's input prompt.
-
-## Usage
-
-Before diving into the methods, make sure the following preconditions are met:
-
-1. Load the `index.html` file in a web browser or any HTML rendering environment.
-2. Ensure the `url` variable is set to the correct base URL in the `<script>` section at the beginning of the file.
-
-### Methods
-
-- `add_colums(colums)`: This method creates and appends new table columns (`<tr>` elements) with the specified headers from the `colums` object. It uses the keys of the `colums` object as the column headers.
-- `add_product(product)`: This method iterates over each row in the table, creates `<th>` elements, and populates them with the respective product information. It takes a `product` object as input.
-- `clear_data()`: This method clears the existing data in the table, removing specific elements with the classes `.characteristics:not(root)` and `.rate:not(root)`.
-- `add_rate_colums(colums)`: This method creates and appends new table columns (`<tr>` elements) for rating information. It iterates over the keys of the `colums` object and uses them as column headers.
-- `get_orders(prompt)`: This method sends a GET request to the server to fetch the order data based on the user's input `prompt`. Once the data is retrieved, it calls the `add_rate_colums()`, `add_colums()`, and `add_product()` methods to populate the table.
-- `make_req()`: This method is triggered when the user clicks the "Get orders" button. It clears existing data in the table and retrieves new order information by calling the `get_orders()` method with the user's input prompt.
-
-## Additional Remarks
-
-Note that the provided documentation is only a reference for the highlighted methods and usage instructions. For complete documentation, please refer to additional sources or the original source code.
-# visual.py
-
-This file provides a Flask web application that allows users to interact with the `main` module and receive JSON data with the list of orders corresponding to a given prompt.
-
-## Usage
-
-1. Ensure that the `main` module is in the same directory or correctly imported at the beginning of this file.
-2. Run the `visual.py` script.
-3. The web server will start on `http://0.0.0.0:8000`.
-4. Access the web page via the URL and use the endpoint `/get_orders` to retrieve the list of orders for a specific prompt.
-
-### Method Descriptions
-
-1. **`Visual(port: int = 800)`**: This class constructor initializes the `Visual` class and assigns a specified `port` number, with a default value of `800`.
-
-2. **`start_app()`**: This method initiates the Flask web application.
-
-3. **`render_template()`**: This route renders the `index.html` template, which serves as the main page of the web application.
-
-4. **`get_orders()`**: This route receives a GET request with a query parameter named `prompt`. It calls the `Get_orders` function from the `main` module and converts the products in the returned list to a dictionary format, which is then sent as JSON data with the message "Получено значение!".
-
-### Example Usage
-
-Run `visual.py` and send a GET request to `http://0.0.0.0:8000/get_orders?prompt=<your_prompt>`. Replace `<your_prompt>` with the desired prompt. The function will return a JSON response with the list of orders for the given prompt.
-
-**Note**: Make sure to adhere to the [Google Style](https://google.github.io/styleguide/pyguide.html) when using this file.
-
-**Additional wishes**: None.
-
-</markdown>
+### 📄 AutoDoc System
+- [Workflow](#autodoc-workflow)
+- [Configuration](#autodoc-config)
+
+### 📦 Product & Utility
+- [Product Class](#product-class)
+- [Utility Classes](#utility-classes)
+
+### 📊 Data Handling
+- [Data Handler](#data-handler)
+- [Handler Order](#handler-order)
+- [Handler Block](#handler-block)
+
+### 🌐 Web Application
+- [Request Handling](#request-handling)
+- [Web Application](#web-application)
+<a name="autodoc-workflow"></a>
+## `.github/workflows/autodoc.yml` - Automated Documentation Workflow
+
+### Functional Role
+This file defines a GitHub Actions workflow named **AutoDoc**. Its primary purpose is to automate the generation of project documentation using an external reusable workflow.
+
+### Workflow Logic
+1. **Trigger Events**:
+   - **Push to `main` branch**: Automatically triggers the workflow when changes are pushed to the `main` branch.
+   - **Manual Dispatch**: Allows manual execution of the workflow via GitHub's UI.
+
+2. **Job Configuration**:
+   - **Permissions**: Grants write access to repository contents.
+   - **Reusable Workflow**: Leverages `reuseble_agd.yml` from the external repository `Drag-GameStudio/ADG` for documentation generation.
+   - **Secrets**: Uses the `ADG_API_TOKEN` secret for authentication.
+
+### Data Flow
+| Entity              | Type   | Role                          | Notes                                      |
+|---------------------|--------|-------------------------------|--------------------------------------------|
+| `ADG_API_TOKEN`     | Secret | Authentication Token          | Used to authenticate with the external workflow. |
+| `reuseble_agd.yml`  | File   | Reusable Workflow Definition  | Contains the logic for automated documentation generation. |
+| `main` branch       | Branch | Trigger for Workflow Execution | Pushes to this branch trigger the workflow. |
+
+> **Note**: Ensure the `ADG_API_TOKEN` secret is correctly configured in the repository settings to avoid workflow failures.
+
+---
+<a name="autodoc-config"></a>
+## `autodocconfig.yml` - AutoDoc Configuration File
+
+### Functional Role
+This configuration file defines the settings for the AutoDoc workflow, including file exclusions, build preferences, and documentation structure.
+
+### Configuration Details
+1. **Project Metadata**:
+   - `project_name`: Specifies the name of the project as **"Project"**.
+   - `language`: Sets the documentation language to **English (en)**.
+
+2. **Ignored Files**:
+   - Excludes specific file types and directories from the documentation process, such as Python bytecode files (`*.pyc`), cache directories (`__pycache__`), and environment folders (`venv`, `env`).
+
+3. **Build Settings**:
+   - `save_logs`: Disables saving of logs (`false`).
+   - `log_level`: Sets the verbosity of logs to **2**.
+
+4. **Structure Settings**:
+   - `include_intro_links`: Enables the inclusion of introductory links in the documentation.
+   - `include_intro_text`: Enables the inclusion of introductory text.
+   - `include_order`: Ensures the documentation follows a specific order.
+
+5. **Global File Usage**:
+   - `use_global_file`: Indicates that a global configuration file is used (`true`).
+   - `max_doc_part_size`: Limits the maximum size of each documentation part to **5000** characters.
+
+### Data Flow
+| Entity                   | Type   | Role                          | Notes                                      |
+|--------------------------|--------|-------------------------------|--------------------------------------------|
+| `project_name`           | String | Project Identifier            | Used as the title of the documentation.    |
+| `ignore_files`           | List   | File Exclusion Rules          | Specifies files and directories to ignore. |
+| `save_logs`              | Bool   | Log Saving Preference         | Determines if logs should be saved.        |
+| `log_level`              | Int    | Log Verbosity Level           | Controls the level of detail in logs.      |
+| `use_global_file`        | Bool   | Global Config File Usage      | Indicates if a global file is used.        |
+| `max_doc_part_size`      | Int    | Documentation Part Size Limit | Limits the size of each documentation part.|
+
+> **Warning**: Ensure that the `ignore_files` list is comprehensive to avoid including unnecessary files in the documentation.
+
+---
+<a name="product-class"></a>
+## `Product` Class - Product Data Representation
+
+### Functional Role
+The `Product` class serves as the core data structure for storing and managing product-related information, including base data, characteristics, and ratings.
+
+### Class Attributes and Methods
+1. **Attributes**:
+   - `name`: Name of the product.
+   - `link`: URL to the product page.
+   - `price`: Price of the product.
+   - `image`: URL to the product image.
+   - `characteristics`: Dictionary of product characteristics.
+   - `rating`: Dictionary of product ratings.
+   - `all_characteristics`: Dictionary of all characteristics across products.
+   - `all_rate`: Dictionary of all ratings across products.
+
+2. **Methods**:
+   - `set_base_data(**kwargs)`: Sets the base attributes (`name`, `link`, `price`, `image`) of the product.
+   - `set_characteristics(characteristics: dict)`: Updates the product's characteristics.
+   - `set_rating(rating: dict[str, float])`: Updates the product's ratings.
+   - `get_data()`: Prints the product's base data and general rating.
+   - `set_all_characteristics_params(all_characteristics: dict)`: Maps all characteristics to the product.
+   - `set_all_rate(all_rate: dict)`: Maps all ratings to the product.
+   - `to_dict()`: Converts the product object into a dictionary for serialization.
+
+### Data Flow
+| Entity                  | Type   | Role                          | Notes                                      |
+|-------------------------|--------|-------------------------------|--------------------------------------------|
+| `name`                  | String | Product Name                  | Extracted from HTML.                       |
+| `link`                  | String | Product URL                   | Extracted from HTML.                       |
+| `price`                 | Float  | Product Price                 | Extracted and converted from HTML.         |
+| `image`                 | String | Product Image URL             | Extracted from HTML.                       |
+| `characteristics`       | Dict   | Product Characteristics       | Key-value pairs of product attributes.     |
+| `rating`                | Dict   | Product Ratings               | Includes general and specific ratings.     |
+| `all_characteristics`   | Dict   | All Characteristics           | Aggregated characteristics across products.|
+| `all_rate`              | Dict   | All Ratings                   | Aggregated ratings across products.        |
+
+---
+<a name="utility-classes"></a>
+## Utility Classes - `Parser` and `Finder`
+
+### Functional Role
+The `Parser` and `Finder` classes provide utility methods for text normalization and HTML element extraction, respectively.
+
+---
+
+### Key Methods
+
+#### **`Parser` Class**
+1. **`from_str_to_int(start: str, flag: tuple) -> float`**
+   - **Responsibility:** Converts a string containing unwanted characters into a float.
+   - **Logic:**
+     - Iterates through the input string and removes characters specified in the `flag` tuple.
+     - Converts the cleaned string into a float.
+
+2. **`get_normal_text(text: str) -> str`**
+   - **Responsibility:** Normalizes a string by removing leading/trailing characters and truncating at the first newline.
+   - **Logic:**
+     - Removes the first 17 characters from the input string.
+     - Truncates the string at the first newline character.
+
+#### **`Finder` Class**
+1. **`find_classes(type_item, class_name) -> list`**
+   - **Responsibility:** Finds all HTML elements with a specific class or tag.
+   - **Logic:**
+     - Uses BeautifulSoup's `find_all()` method to locate elements with the specified class or tag.
+
+2. **`find_without_class() -> list`**
+   - **Responsibility:** Finds all HTML elements, regardless of class or tag.
+   - **Logic:**
+     - Uses BeautifulSoup's `find_all()` method without filtering by class.
+
+---
+
+### Data Flow
+| Entity             | Type   | Role                              | Notes                                       |
+|---------------------|--------|-----------------------------------|---------------------------------------------|
+| `start`            | String | Input String                      | Input string to be converted to a float.    |
+| `flag`             | Tuple  | Unwanted Characters               | Characters to be removed from the string.   |
+| `html_code`        | String | HTML Code                         | Input HTML code for parsing.                |
+
+> **Warning**: Ensure the input HTML structure matches the expected format for accurate parsing and extraction.
+
+
+markdown
+<a name="data-handler"></a>
+## `DataHandler` Class - Product Data Extraction and Processing
+
+### Functional Role
+The `DataHandler` class is responsible for extracting and processing product data from HTML elements. It initializes `Product` objects and populates their attributes with base data, characteristics, and ratings.
+
+### Key Methods
+1. **`get_base_data()`**:
+   - Extracts base product data (name, link, price, image) from `classes_data`.
+   - Initializes a `Product` object with the extracted data.
+
+2. **`get_characteristics(product: Product)`**:
+   - Extracts product characteristics from `others_data`.
+   - Updates the `Product.characteristics` attribute with a dictionary of key-value pairs.
+
+3. **`get_rate(product: Product)`**:
+   - Extracts product ratings (general and specific) from `classes_data`.
+   - Updates the `Product.rating` attribute with a dictionary of ratings.
+
+### Data Flow
+| Entity          | Type   | Role                          | Notes                                      |
+|------------------|--------|-------------------------------|--------------------------------------------|
+| `classes_data`   | Dict   | HTML Elements with Classes    | Input data for extracting structured elements. |
+| `others_data`    | Dict   | HTML Elements without Classes | Input data for extracting unstructured elements. |
+| `product`        | Object | Product Instance              | The `Product` object being populated.      |
+
+> **Warning**: Ensure the structure of `classes_data` and `others_data` matches the expected HTML structure to avoid errors during data extraction.
+
+### Technical Logic Flow
+1. **Base Data Extraction**:
+   - Extracts product name and link from `classes_data` using the key `"/[document]/product-card/product-card__content/product-card__title"`.
+   - Extracts and converts product price using `Parser.from_str_to_int()`.
+   - Extracts product image URL using the key `"/[document]/product-card/product-card__pictures/product-card__img/image-carousel/image-carousel__container/image-carousel__slides/is-active/gallery__img"`.
+   - Initializes a `Product` object and sets its base data.
+
+2. **Characteristics Extraction**:
+   - Extracts characteristics from `others_data` using the key `"/[document]/p-view__specs/p-specs/p-specs__groups-list/p-specs__group/tbody/tr/p-specs__cell"`.
+   - Normalizes characteristic names using `Parser.get_normal_text()`.
+
+3. **Ratings Extraction**:
+   - Extracts general rating from `classes_data` using the key `"/[document]/product-estimate/average-estimate/average-estimate__rating"`.
+   - Extracts additional ratings (if available) using `HandlerBlock.Handler()` and its sub-methods.
+   - Updates the `Product.rating` attribute with the extracted ratings.
+
+> **Error Handling**: If ratings are not found, the method sets the `Product.rating` attribute to `None`.
+
+
+markdown
+<a name="handler-order"></a>
+## `HandlerOrder` Class - Product Sorting and Organization
+
+### Functional Role
+The `HandlerOrder` class is responsible for sorting a list of `Product` objects by their general rating and organizing their characteristics and ratings into shared structures. It ensures that all products are aligned with a consistent set of characteristics and rating types for further processing or display.
+
+---
+
+### Key Methods
+
+#### 1. **`sort_orders()`**
+- **Responsibility:** Sorts the list of `Product` objects in descending order based on their general rating.
+- **Logic:**
+  - Implements a bubble sort algorithm to reorder products.
+  - Compares the `general` rating of adjacent products and swaps them if necessary.
+  - Uses a `try-except` block to handle cases where a product's `rating["general"]` is missing.
+
+#### 2. **`get_colums()`**
+- **Responsibility:** Creates a dictionary of all unique characteristics across the products.
+- **Logic:**
+  - Iterates over each product's `characteristics` dictionary.
+  - Adds each characteristic key to the `colums` dictionary with a default value of `"-"`.
+
+#### 3. **`get_all_characteristics()`**
+- **Responsibility:** Updates each product's `all_characteristics` attribute to align with the shared `colums` dictionary.
+- **Logic:**
+  - Iterates over all products.
+  - Calls the `set_all_characteristics_params()` method of each product, passing the `colums` dictionary.
+
+#### 4. **`get_colums_rate()`**
+- **Responsibility:** Creates a dictionary of all unique rating types across the products.
+- **Logic:**
+  - Iterates over each product's `rating` dictionary.
+  - Adds each rating key to the `colums_rate` dictionary with a default value of `"-"`.
+
+#### 5. **`get_all_rate()`**
+- **Responsibility:** Updates each product's `all_rate` attribute to align with the shared `colums_rate` dictionary.
+- **Logic:**
+  - Iterates over all products.
+  - Calls the `set_all_rate()` method of each product, passing the `colums_rate` dictionary.
+
+---
+
+### Data Flow
+| Entity             | Type   | Role                              | Notes                                       |
+|---------------------|--------|-----------------------------------|---------------------------------------------|
+| `products`          | List   | List of `Product` objects         | The main input to the class.                |
+| `colums`            | Dict   | Shared Characteristics Dictionary | Aggregates all unique product characteristics. |
+| `colums_rate`       | Dict   | Shared Ratings Dictionary         | Aggregates all unique product rating types. |
+
+---
+
+### Technical Logic Flow
+
+1. **Sorting Products by Rating (`sort_orders`)**:
+   - Iterates through the `products` list using a nested loop.
+   - Compares the `general` rating of adjacent products.
+   - Swaps products if the current product's rating is lower than the next product's rating.
+   - Handles missing `general` ratings gracefully using a `try-except` block.
+
+2. **Extracting Shared Characteristics (`get_colums`)**:
+   - Iterates through each product's `characteristics` dictionary.
+   - Collects all unique keys into a shared `colums` dictionary.
+
+3. **Aligning Characteristics (`get_all_characteristics`)**:
+   - Calls `set_all_characteristics_params()` on each product, passing the shared `colums` dictionary.
+   - Ensures all products have the same set of characteristics.
+
+4. **Extracting Shared Ratings (`get_colums_rate`)**:
+   - Iterates through each product's `rating` dictionary.
+   - Collects all unique keys into a shared `colums_rate` dictionary.
+
+5. **Aligning Ratings (`get_all_rate`)**:
+   - Calls `set_all_rate()` on each product, passing the shared `colums_rate` dictionary.
+   - Ensures all products have the same set of ratings.
+
+---
+<a name="handler-block"></a>
+## `HandlerBlock` Class - HTML Parsing for Structured Data
+
+### Functional Role
+The `HandlerBlock` class is responsible for parsing HTML blocks and extracting structured data. It separates elements with and without classes into distinct dictionaries, which can be further processed by other components.
+
+---
+
+### Key Methods
+
+#### 1. **`Handler()`**
+- **Responsibility:** Extracts and returns both class-based and non-class-based HTML elements as dictionaries.
+- **Logic:**
+  - Calls `handler_classes()` to extract elements with classes.
+  - Calls `handler_element_without_classes()` to extract elements without classes.
+  - Returns a tuple containing the results of both methods.
+
+#### 2. **`handler_classes()`**
+- **Responsibility:** Extracts HTML elements with classes and organizes them into a dictionary.
+- **Logic:**
+  - Uses `Finder.find_classes()` to locate all elements with classes.
+  - Constructs a dictionary where keys are element paths and values are lists of elements.
+
+#### 3. **`handler_element_without_classes()`**
+- **Responsibility:** Extracts HTML elements without classes and organizes them into a dictionary.
+- **Logic:**
+  - Uses `Finder.find_without_class()` to locate all elements without classes.
+  - Constructs a dictionary where keys are element paths and values are lists of elements.
+
+#### 4. **`get_item_path()`**
+- **Responsibility:** Constructs a unique path for a given HTML element.
+- **Logic:**
+  - Traverses the element's parent hierarchy to build a path string.
+  - Includes the element's class name or tag name in the path.
+
+---
+
+### Data Flow
+| Entity             | Type   | Role                              | Notes                                       |
+|---------------------|--------|-----------------------------------|---------------------------------------------|
+| `block_code`        | String | HTML Code                        | Input HTML block to be parsed.              |
+| `class_data`        | Dict   | Class-Based Elements             | Output dictionary of elements with classes. |
+| `element_data`      | Dict   | Non-Class-Based Elements         | Output dictionary of elements without classes. |
+
+---
+
+### Technical Logic Flow
+
+1. **Parsing HTML Block (`Handler`)**:
+   - Calls `handler_classes()` to extract elements with classes.
+   - Calls `handler_element_without_classes()` to extract elements without classes.
+   - Returns a tuple containing both dictionaries.
+
+2. **Extracting Class-Based Elements (`handler_classes`)**:
+   - Uses `Finder.find_classes()` to locate elements with classes.
+   - Builds a dictionary where keys are element paths (constructed by `get_item_path()`) and values are lists of elements.
+
+3. **Extracting Non-Class-Based Elements (`handler_element_without_classes`)**:
+   - Uses `Finder.find_without_class()` to locate elements without classes.
+   - Builds a dictionary where keys are element paths (constructed by `get_item_path()`) and values are lists of elements.
+
+4. **Constructing Element Paths (`get_item_path`)**:
+   - Traverses the element's parent hierarchy.
+   - Constructs a path string using class names or tag names.
+
+---
+<a name="request-handling"></a>
+## Request Handling and Product Data Processing (`main.py`)
+
+### Functional Role
+The `main.py` file serves as the core logic for handling HTTP requests, fetching HTML content, parsing product data, and organizing it into structured objects. It acts as the intermediary between the web interface and the backend data processing pipeline.
+
+---
+
+### Key Classes and Methods
+
+#### **`Req_part` Class**
+Handles HTTP requests to fetch HTML content and extract specific elements from the response.
+
+| Method                  | Parameters                                                                 | Return Type | Role                                                                 |
+|-------------------------|----------------------------------------------------------------------------|-------------|----------------------------------------------------------------------|
+| `__init__(url: str)`    | `url`: Base URL for the HTTP requests.                                     | None        | Initializes the `Req_part` instance with the base URL.              |
+| `get_html_code(prompt: str) -> str` | `prompt`: Search query string.                                   | String      | Fetches the HTML code for a given search query from the URL.         |
+| `get_element(element_type: str, element_class: str, html_code: str) -> list` | `element_type`: HTML tag type. <br> `element_class`: Class name of the element. <br> `html_code`: HTML content to parse. | List        | Extracts a list of HTML elements matching the specified type and class. |
+
+#### **`HandlerCode` Class**
+Coordinates the process of fetching, parsing, and organizing product data.
+
+| Method                  | Parameters                                                                 | Return Type | Role                                                                 |
+|-------------------------|----------------------------------------------------------------------------|-------------|----------------------------------------------------------------------|
+| `__init__(url: str, find_items: str, prompt: str)` | `url`: Base URL for requests. <br> `find_items`: Class name to locate product blocks. <br> `prompt`: Search query string. | None        | Initializes the `HandlerCode` instance with the URL, search query, and target class. |
+| `make_req(url: str, find_items: str, prompt: str) -> list` | `url`: URL for the request. <br> `find_items`: Class name to locate product blocks. <br> `prompt`: Search query string. | List        | Fetches HTML content and extracts product blocks matching the specified class. |
+| `hendler_blocks(blocks: list) -> list` | `blocks`: List of HTML blocks containing product data.          | List        | Processes each block to extract product data, characteristics, and ratings. |
+| `get_characteristics(html_code: str, RP_class: Req_part, product: Product) -> Product` | `html_code`: HTML content. <br> `RP_class`: Instance of `Req_part`. <br> `product`: Product object to update. | Product     | Extracts product characteristics and updates the `Product` object. |
+| `get_all_order(max_page: int = 3) -> list` | `max_page`: Maximum number of pages to process.                 | List        | Iterates through pages to fetch and process product data.            |
+| `add_filter(filter: str, value: any)` | `filter`: Filter type (e.g., price range). <br> `value`: Filter value. | None        | Adds a filter to the request parameters.                            |
+| `apply_param()`          | None                                                                      | None        | Appends filters to the base URL for subsequent requests.             |
+
+#### **`Get_orders(prompt: str)` Function**
+Orchestrates the process of fetching, processing, and organizing product data based on a user-provided search query.
+
+| Parameter               | Type   | Role                              | Notes                                       |
+|-------------------------|--------|-----------------------------------|---------------------------------------------|
+| `prompt`                | String | User search query.                | Used to fetch relevant product data.        |
+
+**Logic:**
+1. Initializes a `HandlerCode` instance with the base URL, search query, and target class for product blocks.
+2. Applies filters (if any) to the request URL.
+3. Fetches and processes product data from the specified number of pages using `get_all_order()`.
+4. Passes the processed product list to `HendlerOrder` for sorting and organizing.
+5. Returns the final list of `Product` objects.
+
+---
+<a name="web-application"></a>
+## Web Application (`visual.py`)
+
+### Functional Role
+The `visual.py` file implements a Flask-based web application that serves an HTML interface and provides an API endpoint for fetching processed product data.
+
+---
+
+### Key Components
+
+#### **Flask Application**
+| Method                  | Parameters                                                                 | Return Type | Role                                                                 |
+|-------------------------|----------------------------------------------------------------------------|-------------|----------------------------------------------------------------------|
+| `start_app()`           | None                                                                      | None        | Starts the Flask server on the specified port.                       |
+| `render_template()`     | None                                                                      | HTML        | Serves the `index.html` template to the client.                      |
+| `get_orders()`          | None                                                                      | JSON        | Fetches product data using `main.Get_orders()` and returns it as JSON.|
+
+---
+
+### Functional Flow
+
+1. **User Interaction:**
+   - User accesses the root URL (`/`) of the web application.
+   - The `render_template()` method serves the `index.html` file, which contains the user interface.
+
+2. **Data Request:**
+   - User enters a search query and submits it via the "Get orders" button.
+   - The frontend sends a GET request to the `/get_orders` endpoint with the query as a parameter.
+
+3. **Backend Processing:**
+   - The `get_orders()` method retrieves the query parameter from the request.
+   - Calls `main.Get_orders(prompt)` to fetch and process product data.
+   - Converts the resulting `Product` objects into dictionaries using the `to_dict()` method.
+   - Returns the product data as a JSON response.
+
+4. **Frontend Update:**
+   - The frontend parses the JSON response.
+   - Dynamically updates the HTML table with product data, including characteristics and ratings.
+
+---
+
+### Data Flow
+| Entity                  | Type   | Role                              | Notes                                       |
+|-------------------------|--------|-----------------------------------|---------------------------------------------|
+| `prompt`                | String | User search query.                | Passed from the frontend to the backend.    |
+| `products`              | List   | List of `Product` objects.        | Processed product data returned by `Get_orders()`. |
+| `products_list`         | List   | List of product dictionaries.     | Serialized product data for JSON response.  |
+
+> **Note:** The Flask app listens on `0.0.0.0` and the default port is `800`. Ensure the port is available before starting the application.
+
+    
